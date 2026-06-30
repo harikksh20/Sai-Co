@@ -47,7 +47,7 @@ function Categories() {
           Explore Our Products
         </p>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
+        <div className="flex flex-wrap justify-center gap-6 md:gap-10">
 
           {categories.map((category) => (
             <div
@@ -65,16 +65,16 @@ function Categories() {
             >
               <div
                 className="
-                  w-40 h-40
+                  w-28 h-28
                   rounded-full
-                  border-4 border-amber-600
-                  p-2
+                  border-4 border-amber-500
+                  object-cover
                   shadow-lg
-                  overflow-hidden
-                  hover:shadow-2xl
+            
+                  hover:shadow-110
                   transition
                   duration-500
-                  group-hover:scale-110
+                  // group-hover:scale-110
                 "
               >
                 <img

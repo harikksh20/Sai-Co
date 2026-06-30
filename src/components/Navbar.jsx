@@ -1,55 +1,136 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
+import {
+  FaShoppingCart,
+  FaBars,
+  FaTimes,
+} from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { FaBars, FaTimes, FaShoppingCart } from "react-icons/fa";
-import { CartContext } from "../context/CartContext";
-import { motion } from "framer-motion";
+import logo from "../assets/logo/logo.jpg";
+
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const [scrolled, setScrolled] = useState(false);
-
-  const { cart } = useContext(CartContext);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      // Change navbar background
+      setScrolled(window.scrollY > 100);
+
+      // Show navbar near top
+      if (window.scrollY < 100) {
+        setShowNavbar(true);
+      }
+      // Hide while scrolling down
+      else if (window.scrollY > lastScrollY) {
+        setShowNavbar(false);
+      }
+      // Show while scrolling up
+      else {
+        setShowNavbar(true);
+      }
+
+      setLastScrollY(window.scrollY);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener(
+      "scroll",
+      handleScroll
+    );
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener(
+        "scroll",
+        handleScroll
+      );
     };
-  }, []);
+  }, [lastScrollY]);
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white shadow-lg py-4"
-          : "bg-transparent py-6"
-      }`}
+      className={`
+        fixed
+        top-0
+        left-0
+        w-full
+        z-50
+        transition-all
+        duration-500
+        ${
+          showNavbar
+            ? "translate-y-0"
+            : "-translate-y-full"
+        }
+        ${
+          scrolled
+            ? "bg-white/90 backdrop-blur-lg shadow-xl"
+            : "bg-transparent"
+        }
+      `}
     >
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        
+      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+
         {/* Logo */}
+
         <Link to="/">
-          <h1
-            className={`text-3xl font-bold ${
-              scrolled ? "text-amber-700" : "text-white"
-            }`}
-          >
-            Sai & Co
-          </h1>
+          <div className="flex items-center gap-3">
+
+            <img
+              src={logo}
+              alt="Sai & Co"
+              className="
+                w-12
+                h-12
+                rounded-full
+                object-cover
+                border-2
+                border-amber-500
+                hover:rotate-12
+                hover:scale-110
+                transition
+                duration-300
+              "
+            />
+
+            <h1
+              className={`
+                text-3xl
+                font-bold
+                transition
+                duration-300
+                ${
+                  scrolled
+                    ? "text-amber-700"
+                    : "text-white"
+                }
+              `}
+              style={{
+                fontFamily: "Cinzel",
+              }}
+            >
+              SAI & CO
+            </h1>
+
+          </div>
         </Link>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex items-center gap-8">
+
+        <ul className="hidden md:flex gap-8 font-medium">
+
           <li>
             <a
               href="#home"
-              className={`hover:text-amber-700 ${
-                scrolled ? "text-black" : "text-white"
-              }`}
+              className={`
+                transition
+                hover:text-amber-500
+                ${
+                  scrolled
+                    ? "text-gray-700"
+                    : "text-white"
+                }
+              `}
             >
               Home
             </a>
@@ -57,10 +138,33 @@ function Navbar() {
 
           <li>
             <a
+              href="#about"
+              className={`
+                transition
+                hover:text-amber-500
+                ${
+                  scrolled
+                    ? "text-gray-700"
+                    : "text-white"
+                }
+              `}
+            >
+              About
+            </a>
+          </li>
+
+          <li>
+            <a
               href="#categories"
-              className={`hover:text-amber-700 ${
-                scrolled ? "text-black" : "text-white"
-              }`}
+              className={`
+                transition
+                hover:text-amber-500
+                ${
+                  scrolled
+                    ? "text-gray-700"
+                    : "text-white"
+                }
+              `}
             >
               Categories
             </a>
@@ -69,9 +173,15 @@ function Navbar() {
           <li>
             <a
               href="#products"
-              className={`hover:text-amber-700 ${
-                scrolled ? "text-black" : "text-white"
-              }`}
+              className={`
+                transition
+                hover:text-amber-500
+                ${
+                  scrolled
+                    ? "text-gray-700"
+                    : "text-white"
+                }
+              `}
             >
               Products
             </a>
@@ -79,60 +189,130 @@ function Navbar() {
 
           <li>
             <a
+              href="#gallery"
+              className={`
+                transition
+                hover:text-amber-500
+                ${
+                  scrolled
+                    ? "text-gray-700"
+                    : "text-white"
+                }
+              `}
+            >
+              Gallery
+            </a>
+          </li>
+
+          <li>
+            <a
               href="#contact"
-              className={`hover:text-amber-700 ${
-                scrolled ? "text-black" : "text-white"
-              }`}
+              className={`
+                transition
+                hover:text-amber-500
+                ${
+                  scrolled
+                    ? "text-gray-700"
+                    : "text-white"
+                }
+              `}
             >
               Contact
             </a>
           </li>
 
-          {/* Cart */}
-          <Link to="/cart">
-            <div className="relative">
-              <FaShoppingCart
-                className={`text-2xl ${
-                  scrolled ? "text-black" : "text-white"
-                }`}
-              />
-
-              {cart.length > 0 && (
-                <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                  {cart.length}
-                </span>
-              )}
-            </div>
-          </Link>
         </ul>
 
-        {/* Mobile Menu Button */}
-        <button
-          className={`md:hidden text-2xl ${
-            scrolled ? "text-black" : "text-white"
-          }`}
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          {menuOpen ? <FaTimes /> : <FaBars />}
-        </button>
+        {/* Right Side */}
+
+        <div className="flex items-center gap-5">
+
+          <Link to="/cart">
+            <FaShoppingCart
+              size={22}
+              className={`
+                transition
+                hover:text-amber-500
+                ${
+                  scrolled
+                    ? "text-gray-700"
+                    : "text-white"
+                }
+              `}
+            />
+          </Link>
+
+          {/* Mobile Menu Button */}
+
+          <button
+            className="md:hidden"
+            onClick={() =>
+              setMenuOpen(!menuOpen)
+            }
+          >
+            {menuOpen ? (
+              <FaTimes
+                size={24}
+                className={
+                  scrolled
+                    ? "text-gray-700"
+                    : "text-white"
+                }
+              />
+            ) : (
+              <FaBars
+                size={24}
+                className={
+                  scrolled
+                    ? "text-gray-700"
+                    : "text-white"
+                }
+              />
+            )}
+          </button>
+
+        </div>
+
       </div>
 
       {/* Mobile Menu */}
+
       {menuOpen && (
-        <div className="md:hidden bg-white shadow-lg">
-          <ul className="flex flex-col items-center gap-6 py-6">
+        <div className="md:hidden bg-white shadow-xl py-5">
 
-            <a href="#home">Home</a>
+          <ul className="flex flex-col items-center gap-5 text-gray-700">
 
-            <a href="#categories">Categories</a>
+            <li>
+              <a href="#home">Home</a>
+            </li>
 
-            <a href="#products">Products</a>
+            <li>
+              <a href="#about">About</a>
+            </li>
 
-            <a href="#contact">Contact</a>
+            <li>
+              <a href="#categories">
+                Categories
+              </a>
+            </li>
 
-            <Link to="/cart">
-              🛒 Cart ({cart.length})
-            </Link>
+            <li>
+              <a href="#products">
+                Products
+              </a>
+            </li>
+
+            <li>
+              <a href="#gallery">
+                Gallery
+              </a>
+            </li>
+
+            <li>
+              <a href="#contact">
+                Contact
+              </a>
+            </li>
 
           </ul>
         </div>
