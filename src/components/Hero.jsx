@@ -165,7 +165,19 @@ function Hero() {
             <div className="absolute inset-0 bg-black/60 flex flex-col justify-center items-center text-center px-6">
 
               <motion.h1
-                initial="hidden"
+                initial={{
+                  opacity: 0,
+                  scale: 0.8,
+                  y: 50,
+                }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                  y: 0,
+                }}
+                transition={{
+                  duration: 1.2,
+                }}
                 whileInView="visible"
                 viewport={{ once: false }}
                 variants={titleAnimation}
@@ -201,17 +213,36 @@ function Hero() {
               </motion.p>
 
               <motion.button
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: false }}
-                variants={buttonAnimation}
-                whileHover={{
-                  scale: 1.1,
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 1,
+                  duration: 0.8,
                 }}
-                className="mt-8 bg-amber-600 px-8 py-4 rounded-full text-white shadow-2xl"
-              >
-                Shop Now
-              </motion.button>
+                whileHover={{
+                  scale: 1.08,
+                  boxShadow:
+                    "0px 0px 30px rgba(245,158,11,0.7)",
+                }}
+                 whileTap={{ scale: 0.95 }}
+                className="
+                  mt-8
+                  px-10
+                  py-4
+                  rounded-full
+                  text-lg
+                  font-semibold
+                text-white
+                  bg-gradient-to-r
+                from-amber-500
+                to-yellow-600
+                shadow-2xl
+                transition-all
+                duration-500
+              "
+            >
+              Shop Now
+            </motion.button>
 
             </div>
           </div>

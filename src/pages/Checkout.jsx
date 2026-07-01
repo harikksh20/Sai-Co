@@ -1,134 +1,173 @@
-import { useContext, useState } from "react";
-import { CartContext } from "../context/CartContext";
+import {
+  FaCreditCard,
+  FaMoneyBillWave,
+  FaMapMarkerAlt,
+  FaUser,
+  FaPhone,
+} from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+
 function Checkout() {
-  const { cart } = useContext(CartContext);
-
-  const [payment, setPayment] = useState("COD");
-
-  const total = cart.reduce(
-    (sum, item) =>
-      sum + Number(item.price.replace(/[₹,]/g, "")),
-    0
-  );
   const navigate = useNavigate();
-  const whatsappNumber = "919876543210";
-
-const placeWhatsappOrder = () => {
-  window.open(
-    `https://wa.me/${whatsappNumber}?text=I want to place an order.`,
-    "_blank"
-  );
-};
-
   return (
-    <div className="min-h-screen bg-gray-100 py-20">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 px-6">
+    <div className="min-h-screen bg-gray-100 py-20 px-6">
 
-        {/* Customer Details */}
-        <div className="bg-white p-8 rounded-3xl shadow-lg">
-          <h2 className="text-3xl font-bold mb-6">
-            Customer Details
-          </h2>
+      <div className="max-w-7xl mx-auto">
 
-          <input
-            type="text"
-            placeholder="Full Name"
-            className="w-full border p-4 rounded-xl mb-4"
-          />
+        <h1
+          className="text-5xl font-bold text-center mb-14"
+          style={{
+            fontFamily: "Cinzel",
+          }}
+        >
+          Secure Checkout
+        </h1>
 
-          <input
-            type="text"
-            placeholder="Phone Number"
-            className="w-full border p-4 rounded-xl mb-4"
-          />
+        <div className="grid lg:grid-cols-2 gap-10">
 
-          <textarea
-            placeholder="Address"
-            rows="4"
-            className="w-full border p-4 rounded-xl mb-4"
-          />
+          {/* Left */}
 
-          <input
-            type="text"
-            placeholder="Pincode"
-            className="w-full border p-4 rounded-xl mb-4"
-          />
+          <div className="bg-white rounded-3xl shadow-2xl p-10">
 
-          <h3 className="text-2xl font-bold mt-6 mb-4">
-            Payment Method
-          </h3>
+            <h2 className="text-3xl font-bold mb-8">
+              Customer Details
+            </h2>
 
-          <label className="block mb-3">
-            <input
-              type="radio"
-              checked={payment === "COD"}
-              onChange={() => setPayment("COD")}
-            />
-            <span className="ml-2">
-              Cash On Delivery
-            </span>
-          </label>
+            <div className="space-y-5">
 
-          <label className="block mb-3">
-            <input
-              type="radio"
-              checked={payment === "UPI"}
-              onChange={() => setPayment("UPI")}
-            />
-            <span className="ml-2">
-              UPI Payment
-            </span>
-          </label>
+              <div className="flex items-center border rounded-xl p-4">
+                <FaUser className="text-amber-700 mr-4" />
 
-          <label className="block">
-            <input
-              type="radio"
-              checked={payment === "Card"}
-              onChange={() => setPayment("Card")}
-            />
-            <span className="ml-2">
-              Debit / Credit Card
-            </span>
-          </label>
-        </div>
+                <input
+                  type="text"
+                  placeholder="Full Name"
+                  className="w-full outline-none"
+                />
+              </div>
 
-        {/* Order Summary */}
-        <div className="bg-white p-8 rounded-3xl shadow-lg">
-          <h2 className="text-3xl font-bold mb-6">
-            Order Summary
-          </h2>
+              <div className="flex items-center border rounded-xl p-4">
+                <FaPhone className="text-amber-700 mr-4" />
 
-          {cart.map((item) => (
-            <div
-              key={item.id}
-              className="flex justify-between mb-4"
-            >
-              <span>{item.name}</span>
-              <span>{item.price}</span>
+                <input
+                  type="text"
+                  placeholder="Phone Number"
+                  className="w-full outline-none"
+                />
+              </div>
+
+              <div className="flex items-start border rounded-xl p-4">
+                <FaMapMarkerAlt className="text-amber-700 mr-4 mt-1" />
+
+                <textarea
+                  rows="4"
+                  placeholder="Delivery Address"
+                  className="w-full outline-none"
+                />
+              </div>
+
             </div>
-          ))}
 
-          <hr className="my-6" />
+            <h3 className="text-2xl font-bold mt-10 mb-6">
+              Payment Method
+            </h3>
 
-          <div className="flex justify-between text-2xl font-bold">
-            <span>Total</span>
-            <span>₹{total}</span>
+            <div className="space-y-4">
+
+              <label className="flex items-center border rounded-xl p-5 cursor-pointer hover:border-amber-600 transition">
+                <input
+                  type="radio"
+                  name="payment"
+                  className="mr-4"
+                />
+
+                <FaCreditCard className="text-amber-700 mr-3" />
+
+                Credit / Debit Card
+              </label>
+
+              <label className="flex items-center border rounded-xl p-5 cursor-pointer hover:border-amber-600 transition">
+                <input
+                  type="radio"
+                  name="payment"
+                  className="mr-4"
+                />
+
+                <FaMoneyBillWave className="text-green-600 mr-3" />
+
+                Cash On Delivery
+              </label>
+
+            </div>
+
           </div>
 
-          <button onClick={() => navigate("/success")} className="w-full mt-8 bg-amber-700 text-white py-4 rounded-xl hover:bg-amber-800">
-            Place Order
-          </button>
+          {/* Right */}
 
-          <button
-            onClick={placeWhatsappOrder}
-            className="w-full mt-4 bg-green-500 text-white py-4 rounded-xl"
-          >
-            Order via WhatsApp
-          </button>
+          <div className="bg-black text-white rounded-3xl shadow-2xl p-10">
+
+            <h2 className="text-3xl font-bold mb-8">
+              Order Summary
+            </h2>
+
+            <div className="space-y-5">
+
+              <div className="flex justify-between">
+                <span>Commercial Plywood</span>
+                <span>₹1,100</span>
+              </div>
+
+              <div className="flex justify-between">
+                <span>Hardware Items</span>
+                <span>₹800</span>
+              </div>
+
+              <div className="border-t border-gray-700 pt-5 mt-5">
+
+                <div className="flex justify-between text-xl">
+                  <span>Delivery</span>
+                  <span>Free</span>
+                </div>
+
+                <div className="flex justify-between text-3xl font-bold mt-6 text-amber-400">
+                  <span>Total</span>
+                  <span>₹1,900</span>
+                </div>
+
+              </div>
+
+            </div>
+
+            <button 
+              onClick={() =>
+                navigate("/order-success")
+              }
+              className="
+                mt-10
+                w-full
+                bg-amber-600
+                text-white
+                py-5
+                rounded-2xl
+                text-xl
+                font-semibold
+                hover:bg-amber-700
+                hover:scale-105
+                transition
+              "
+            >
+              Place Order
+            </button>
+
+            <p className="text-gray-400 text-center mt-6">
+              Secure payment protected by SSL
+            </p>
+
+          </div>
+
         </div>
 
       </div>
+
     </div>
   );
 }

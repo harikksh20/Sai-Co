@@ -1,80 +1,87 @@
 import plywood from "../assets/categories/plywood.jpg";
 import hardware from "../assets/categories/hardware.jpg";
 import laminate from "../assets/categories/laminate.jpg";
-import doors from "../assets/categories/doors.jpg";
+import door from "../assets/categories/doors.jpg";
+import interior from "../assets/categories/interior.jpg";
+import adhesive from "../assets/categories/adhesive.jpg";
 
 function Categories() {
   const categories = [
     {
-      image: plywood,
       name: "Plywood",
+      image: plywood,
+      link: "#plywood",
     },
     {
-      image: hardware,
       name: "Hardware",
+      image: hardware,
+      link: "#hardware",
     },
     {
-      image: laminate,
       name: "Laminate",
+      image: laminate,
+      link: "#laminate",
     },
     {
-      image: doors,
       name: "Door",
+      image: door,
+      link: "#door",
+    },
+    {
+      name: "Interior",
+      image: interior,
+      link: "#interior",
+    },
+    {
+      name: "Adhesive",
+      image: adhesive,
+      link: "#adhesive",
     },
   ];
-
-  const scrollToCategory = (category) => {
-    document
-      .getElementById(category.toLowerCase())
-      ?.scrollIntoView({
-        behavior: "smooth",
-      });
-  };
 
   return (
     <section
       id="categories"
-      data-aos="zoom-in"
       className="py-20 bg-white"
+      data-aos="fade-up"
     >
       <div className="max-w-7xl mx-auto px-6">
 
-        <h2 className="text-4xl font-bold text-center mb-5">
+        <p className="text-center text-amber-600 tracking-[4px] font-semibold">
+          SAI & CO
+        </p>
+
+        <h2 className="text-5xl font-bold text-center mt-3">
           Shop By Category
         </h2>
 
+        <div className="w-24 h-1 bg-amber-600 mx-auto rounded-full mt-4 mb-5"></div>
+
         <p className="text-center text-gray-500 mb-14">
-          Explore Our Products
+          Explore Our Premium Products
         </p>
 
-        <div className="flex flex-wrap justify-center gap-6 md:gap-10">
+        <div className="flex flex-wrap justify-center gap-10">
 
           {categories.map((category) => (
-            <div
+            <a
               key={category.name}
-              onClick={() =>
-                scrollToCategory(
-                  category.name
-                )
-              }
-              className="
-                flex flex-col items-center
-                cursor-pointer
-                group
-              "
+              href={category.link}
+              className="text-center group"
             >
               <div
                 className="
-                  w-28 h-28
+                  w-40
+                  h-40
                   rounded-full
-                  border-4 border-amber-500
-                  object-cover
-                  shadow-lg
-            
-                  hover:shadow-110
-                  transition
+                  border-4
+                  border-amber-600
+                  overflow-hidden
+                  shadow-xl
+                  hover:shadow-2xl
+                  hover:scale-110
+                  transition-all
                   duration-500
-                  // group-hover:scale-110
                 "
               >
                 <img
@@ -83,22 +90,30 @@ function Categories() {
                   className="
                     w-full
                     h-full
-                    rounded-full
                     object-cover
+                    group-hover:scale-125
                     transition
-                    duration-500
-                    group-hover:scale-110
+                    duration-700
                   "
                 />
               </div>
 
-              <h3 className="mt-5 text-xl font-bold">
+              <h3
+                className="
+                  mt-5
+                  text-xl
+                  font-bold
+                  group-hover:text-amber-700
+                  transition
+                "
+              >
                 {category.name}
               </h3>
-            </div>
+            </a>
           ))}
 
         </div>
+
       </div>
     </section>
   );
