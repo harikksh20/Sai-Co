@@ -107,9 +107,7 @@ function Products() {
                           <button
                             onClick={() =>{
                               addToCart(product);
-                              toast.success(
-                                '${product.name}added to cart'
-                              );
+                              toast.success(`${product.name} added to cart`);
                               
                             }}
                             className="
