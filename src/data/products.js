@@ -42,6 +42,7 @@ import wallPanel from "../assets/products/wall-panel.jpg";
 import charcoalSheet from "../assets/products/charcoal-sheet.jpg";
 
 import woodGlue from "../assets/products/wood-glue.jpg";
+import Adhesivetape from "../assets/products/adhesive-tape.jpg";
 
 export const products = [
   {
@@ -280,6 +281,13 @@ export const products = [
   name: "Wood Glue",
   price: "₹250",
   image: woodGlue,
+  category: "Adhesive",
+},
+{
+  id: 36,
+  name: "Adhesive Tape",
+  price: "₹250",
+  image: Adhesivetape,
   category: "Adhesive",
 },
 ];
